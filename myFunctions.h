@@ -20,8 +20,6 @@ typedef enum{
 
 
 // global Variables
-const char * s1 = "L4B GLCD\n";
-const char * s2 = "--------\n";
 state_t state = Ready;
 
 unsigned int hour = 0;
