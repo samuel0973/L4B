@@ -1,5 +1,5 @@
 // a proposal for main.c ..... just to inspire you
-#include "myHeaders.h"
+#include "myFunctions.h"
 
 void main(void) {
 
@@ -8,8 +8,8 @@ void main(void) {
     clearGLCD(0,7,0,127);
     
 
-    writeTxt(2, 8, s1);     
-    writeTxt(3, 8, s2);     
+    writeTxt(2, 8, "L4B GLCD");     
+    writeTxt(3, 8, "--------");     
     writeTxt(4, 4, "Mar Cabrelles");  
     writeTxt(5, 4, "Samuel Bru Mezquita");  
 
