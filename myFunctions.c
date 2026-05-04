@@ -2,38 +2,22 @@
 
 void tic(void)
 {
-    //Coses a fer periòdicament
     if (increment) ++decimal;
 }
-// interrupt service routine for handling high priority Timer0
+
 void interrupt rutinaAtencioInterrupcio (void) {
 
     if (INTCONbits.TMR0IF && INTCONbits.TMR0IE) {
         tic();
 	
-	TMR0H = 0xFD;
-	TMR0L = 0x13;
-	INTCONbits.TMR0IF = 0;
+	    TMR0H = 0xFD;
+	    TMR0L = 0x13;
+	    INTCONbits.TMR0IF = 0;
     }
-    // falling edge detection and debouncing
-    //??? inputDetector(·){}
-
-    //
 }
 
-//Fcy = Fosc/4 = 2 MHz -> 1 tick = 0.5 microsegons
-//1 timer increment = 0.5 * 256 = 128 microsegons
-//100 ms / 128 microsegons = 781
-//TMR0 overflow a 65536 -> 65536 - 781 = 64755 = 0xFD13
 void init_timer0(void) {
    T0CON = 0b10000111;
-   //<0:2> = 111 prescale value 1:256
-   //<3> = 0 prescalser on
-   //<4> = 0 edge is low-high
-   //<5> = 0 internal clock
-   //<6> = 0 16 bit timer
-   //<7> = 1 enable TMR0
-   
    TMR0H = 0xFD;
    TMR0L = 0x13;
 }
@@ -71,8 +55,8 @@ int inputDetector() {
       __delay_ms(10);
       btn = PORTEbits.RE0;
       if (btn) {
-	 prev_btn = btn;
-	 return 1;
+	    prev_btn = btn;
+	    return 1;
       }
    }
    prev_btn = btn;
@@ -125,9 +109,9 @@ void updateGLCD() {
       decimal = 0;
       clear_values(Decimal);
       if (second == 10) {
-	 state = Stopped;
-	 increment = 0;
-	 transition = 1;
+	    state = Stopped;
+	    increment = 0;
+	    transition = 1;
       }
    }
    if (second >= 60) {
@@ -154,13 +138,7 @@ void updateGLCD() {
    update_progress_bar();
 }
 
-char* get_state_char(state_t state) {
-   if (state == Ready) return "Ready";
-   if (state == Running) return "Running";
-   return "Stopped!";
-}
 
-// initialize PORTs, timer0 and basic PIC resources
 void configPIC() {
     ANSELE = 0x00;
     ANSELB = 0x00;
